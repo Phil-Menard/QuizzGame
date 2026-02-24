@@ -15,6 +15,12 @@ public class QuizManager : MonoBehaviour
 
 	private int nbPlayers;
 
+	private void Awake()
+	{
+		panelMenu.SetActive(true);
+		panelQuiz.SetActive(false);
+	}
+
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
     {
@@ -35,7 +41,6 @@ public class QuizManager : MonoBehaviour
     public void onButtonClicked(int index)
     {
         nbPlayers = index + 2;
-        Debug.Log("nbPlayers : " + nbPlayers);
         panelMenu.SetActive(false);
         for (int i = 0; i < nbPlayers; i++)
         {
