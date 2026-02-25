@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d499d98ac81ba844b8947f551f84e7c, type: 3}
   m_Name: Sims
   m_EditorClassIdentifier: Assembly-CSharp::Question
-  title: Combien dois-je depenser d'euros si je veux acheter tous les DLC des sims
-    4?
+  question: Combien dois-je depenser si je veux acheter les Sims 4 avec tous les
+    DLC?
+  hasImage: 0
   hasAnswers: 0
   answers: []
   goodAnswer: "1294\u20AC"

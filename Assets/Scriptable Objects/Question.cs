@@ -6,8 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Question", menuName = "Scriptable Objects/Question")]
 public class Question : ScriptableObject
 {
-    [SerializeField] private string title;
-	[SerializeField] private bool hasAnswers; 
-	[SerializeField] private List<string> answers;
-	[SerializeField] private string goodAnswer;
+	[SerializeField] public string question;
+	[SerializeField] public bool hasImage;
+	[SerializeField] public bool hasAnswers;
+	[SerializeField] public List<string> answers;
+	[SerializeField] public string goodAnswer;
 }

@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d499d98ac81ba844b8947f551f84e7c, type: 3}
   m_Name: Doom
   m_EditorClassIdentifier: Assembly-CSharp::Question
-  title: "En quelle ann\xE9e est sorti le premier jeu Doom?"
+  question: "En quelle ann\xE9e est sorti le premier jeu Doom?"
+  hasImage: 0
   hasAnswers: 1
   answers:
-  - 1987
   - 1989
+  - 1991
   - 1993
   - 1995
   goodAnswer: 1993

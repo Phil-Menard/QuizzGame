@@ -392,7 +392,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Write your answer here
+  m_text: "\xE9crivez la r\xE9ponse ici"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -1283,6 +1283,18 @@ PrefabInstance:
     - target: {fileID: 8701311487010639946, guid: 4840d12a172ee24418c2f000c8745421, type: 3}
       propertyPath: m_Name
       value: '- Button'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123472770224921128, guid: 4840d12a172ee24418c2f000c8745421, type: 3}
+      propertyPath: m_Color.b
+      value: 0.7294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123472770224921128, guid: 4840d12a172ee24418c2f000c8745421, type: 3}
+      propertyPath: m_Color.g
+      value: 0.64705884
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123472770224921128, guid: 4840d12a172ee24418c2f000c8745421, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7921569
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
