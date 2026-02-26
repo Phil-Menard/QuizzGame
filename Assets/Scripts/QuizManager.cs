@@ -8,8 +8,8 @@ public class QuizManager : MonoBehaviour
 {
 	[SerializeField] private List<Question> questions;
 	[SerializeField] private List<Button> nbPlayersButtons;
-	[SerializeField] private Button previousQuestion;
-	[SerializeField] private Button nextQuestion;
+	[SerializeField] public Button previousQuestion;
+	[SerializeField] public Button nextQuestion;
 	[SerializeField] private TextMeshProUGUI question;
 	[SerializeField] private List<Image> answerPanels;
 	[SerializeField] private List<TextMeshProUGUI> answers;
@@ -17,6 +17,7 @@ public class QuizManager : MonoBehaviour
 	[SerializeField] private GameObject panelMenu;
 	[SerializeField] private GameObject panelTop;
 	[SerializeField] private GameObject panelAnswers;
+	[SerializeField] private RawImage image;
 	[SerializeField] private GameObject panelQuiz;
 	[SerializeField] private GameObject goodAnswer;
 	[SerializeField] private TextMeshProUGUI goodAnswerText;
@@ -29,6 +30,7 @@ public class QuizManager : MonoBehaviour
 
 	private int indexQuestions;
 	private int nbPlayers;
+	private List<PlayerPanel> players = new List<PlayerPanel>();
 	private Color32 greenColor;
 	private Color32 redColor;
 	private Color32 whiteColor;
@@ -53,6 +55,7 @@ public class QuizManager : MonoBehaviour
 		}
 		showAnswerButton.onClick.AddListener(() => ShowAnswer(indexQuestions));
 		startQuizzButton.onClick.AddListener(StartQuizz);
+		previousQuestion.onClick.AddListener(PreviousQuestion);
 		nextQuestion.onClick.AddListener(NextQuestion);
 	}
 
@@ -64,6 +67,8 @@ public class QuizManager : MonoBehaviour
 		{
 			GameObject child = Instantiate(panelPlayerPrefab);
 			child.transform.SetParent(panelPlayers.transform, false);
+			PlayerPanel playerInstance = child.GetComponent<PlayerPanel>();
+			players.Add(playerInstance);
 		}
 		panelQuiz.SetActive(true);
 	}
@@ -80,6 +85,7 @@ public class QuizManager : MonoBehaviour
 	{
 		Question actualQuestion = questions[index];
 		question.text = actualQuestion.question;
+		SetAlphaImage(actualQuestion);
 
 		if (actualQuestion.hasAnswers)
 		{
@@ -92,10 +98,37 @@ public class QuizManager : MonoBehaviour
 		}
 		else
 			panelAnswers.SetActive(false);
+
+		if (actualQuestion.hasImage)
+		{
+			Color imageColor = image.color;
+			imageColor.a = 1;
+			image.color = imageColor;
+			image.texture = actualQuestion.image;
+		}
+	}
+
+	private void SetAlphaImage(Question actualQuestion)
+	{
+		Color imageColor = image.color;
+		if (actualQuestion.hasImage)
+		{
+			imageColor.a = 1;
+			image.color = imageColor;
+			image.texture = actualQuestion.image;
+		}
+		else
+		{
+			imageColor.a = 0;
+			image.color = imageColor;
+			image.texture = null;
+		}
 	}
 
 	private void ShowAnswer(int index)
 	{
+		if (index >= questions.Count)
+			return;
 		Question actualQuestion = questions[index];
 		if (actualQuestion.hasAnswers)
 		{
@@ -117,10 +150,28 @@ public class QuizManager : MonoBehaviour
 
 	private void NextQuestion()
 	{
-		indexQuestions++;
-		goodAnswer.SetActive(false);
-		showAnswer.SetActive(true);
+		foreach (var player in players)
+			player.ClearAnswer();
+
+		if (indexQuestions < questions.Count)
+		{
+			indexQuestions++;
+			goodAnswer.SetActive(false);
+			showAnswer.SetActive(true);
+		}
 		if (indexQuestions < questions.Count)
 			ShowQuestion(indexQuestions);
+		//else show end screen
+	}
+
+	private void PreviousQuestion()
+	{
+		if (indexQuestions > 0)
+		{
+			indexQuestions--;
+			goodAnswer.SetActive(false);
+			showAnswer.SetActive(true);
+			ShowQuestion(indexQuestions);
+		}
 	}
 }

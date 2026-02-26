@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 932307043133923889}
   - component: {fileID: 44586373895579709}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Text Pseudo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -783,6 +783,8 @@ MonoBehaviour:
   minus: {fileID: 13772531362105749}
   plus: {fileID: 6682612291155668784}
   score: {fileID: 7655931580881450808}
+  answerInput: {fileID: 3845714705522071859}
+  pseudo: {fileID: 44586373895579709}
 --- !u!1 &6745327513979147901
 GameObject:
   m_ObjectHideFlags: 0

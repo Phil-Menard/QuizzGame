@@ -1,19 +1,24 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerPanel : MonoBehaviour
 {
-    [SerializeField] private Button minus;
-    [SerializeField] private Button plus;
-    [SerializeField] private TextMeshProUGUI score;
-    private int scoreInt;
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	[SerializeField] private Button minus;
+	[SerializeField] private Button plus;
+	[SerializeField] private TextMeshProUGUI score;
+	[SerializeField] private TMP_InputField answerInput;
+	[SerializeField] private TextMeshProUGUI pseudo;
+	public void ClearAnswer() => answerInput.SetTextWithoutNotify("");
+
+	private int scoreInt;
+
 	void Start()
-    {
-        minus.onClick.AddListener(() => RemovePoint());
-        plus.onClick.AddListener(() => AddPoint());
-        scoreInt = 0;
+	{
+		minus.onClick.AddListener(() => RemovePoint());
+		plus.onClick.AddListener(() => AddPoint());
+		scoreInt = 0;
 	}
 
 	private void RemovePoint()
@@ -23,8 +28,8 @@ public class PlayerPanel : MonoBehaviour
 	}
 
 	private void AddPoint()
-    {
-        scoreInt++;
-        score.text = scoreInt.ToString();
-    }
+	{
+		scoreInt++;
+		score.text = scoreInt.ToString();
+	}
 }
