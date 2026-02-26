@@ -8,8 +8,8 @@ public class QuizManager : MonoBehaviour
 {
 	[SerializeField] private List<Question> questions;
 	[SerializeField] private List<Button> nbPlayersButtons;
-	[SerializeField] public Button previousQuestion;
-	[SerializeField] public Button nextQuestion;
+	[SerializeField] private Button previousQuestion;
+	[SerializeField] private Button nextQuestion;
 	[SerializeField] private TextMeshProUGUI question;
 	[SerializeField] private List<Image> answerPanels;
 	[SerializeField] private List<TextMeshProUGUI> answers;
@@ -27,6 +27,9 @@ public class QuizManager : MonoBehaviour
 	[SerializeField] private Button startQuizzButton;
 	[SerializeField] private GameObject panelPlayers;
 	[SerializeField] private CanvasGroup fadeOverlay;
+	[SerializeField] private GameObject sound;
+	[SerializeField] private Button soundButton;
+	[SerializeField] private AudioSource audioSource;
 
 	private int indexQuestions;
 	private int nbPlayers;
@@ -39,6 +42,10 @@ public class QuizManager : MonoBehaviour
 	{
 		panelMenu.SetActive(true);
 		panelQuiz.SetActive(false);
+		panelTop.SetActive(false);
+		panelAnswers.SetActive(false);
+		startQuizz.SetActive(false);
+		sound.SetActive(false);
 		indexQuestions = 0;
 		greenColor = new Color32(180, 200, 191, 255);
 		redColor = new Color32(202, 165, 186, 255);
@@ -57,6 +64,7 @@ public class QuizManager : MonoBehaviour
 		startQuizzButton.onClick.AddListener(StartQuizz);
 		previousQuestion.onClick.AddListener(PreviousQuestion);
 		nextQuestion.onClick.AddListener(NextQuestion);
+		soundButton.onClick.AddListener(PlayAudio);
 	}
 
 	private void SetupPlayers(int index)
@@ -71,6 +79,7 @@ public class QuizManager : MonoBehaviour
 			players.Add(playerInstance);
 		}
 		panelQuiz.SetActive(true);
+		startQuizz.SetActive(true);
 	}
 
 	private void StartQuizz()
@@ -86,7 +95,12 @@ public class QuizManager : MonoBehaviour
 		Question actualQuestion = questions[index];
 		question.text = actualQuestion.question;
 		SetAlphaImage(actualQuestion);
+		SetPanelAnswer(actualQuestion);
+		SetSoundButton(actualQuestion);
+	}
 
+	private void SetPanelAnswer(Question actualQuestion)
+	{
 		if (actualQuestion.hasAnswers)
 		{
 			for (int i = 0; i < 4; i++)
@@ -98,14 +112,6 @@ public class QuizManager : MonoBehaviour
 		}
 		else
 			panelAnswers.SetActive(false);
-
-		if (actualQuestion.hasImage)
-		{
-			Color imageColor = image.color;
-			imageColor.a = 1;
-			image.color = imageColor;
-			image.texture = actualQuestion.image;
-		}
 	}
 
 	private void SetAlphaImage(Question actualQuestion)
@@ -122,6 +128,20 @@ public class QuizManager : MonoBehaviour
 			imageColor.a = 0;
 			image.color = imageColor;
 			image.texture = null;
+		}
+	}
+
+	private void SetSoundButton(Question actualQuestion)
+	{
+		if (actualQuestion.hasSound)
+		{
+			sound.SetActive(true);
+			audioSource.clip = actualQuestion.audio;
+		}
+		else
+		{
+			sound.SetActive(false);
+			audioSource.clip = null;
 		}
 	}
 
@@ -146,6 +166,11 @@ public class QuizManager : MonoBehaviour
 			showAnswer.SetActive(false);
 			goodAnswerText.text = actualQuestion.goodAnswer;
 		}
+	}
+
+	private void PlayAudio()
+	{
+		audioSource.Play();
 	}
 
 	private void NextQuestion()
